@@ -2,9 +2,9 @@
 <html ng-app="tpAngular">
   <head>
     <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <script type="text/javascript" src="js/angular.min.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
     <style type="text/css">
       .list-group-item img {
         width: 64px;
@@ -16,7 +16,7 @@
     </style>
   </head>
 
-  <body ng-controller="ListController as ctlr">
+  <body ng-controller="ListController as ctlr" background="fond.jpg">
     <!--  Header  -->
     <header>
       <h1 class="text-center">Suivi des tables {{ctlr.test}}</h1>
@@ -27,14 +27,14 @@
     <div class="list-group">
       <!--  Pour chaque table  -->
       <div id="table-{{table.name}}" class="list-group-item" ng-repeat="table in tables">
-        <h3>{{table.name}}</h3>
+        <h3>{{table.nom}}</h3>
         <img ng-src="{{table.img}}"/>
         <button class="btn btn-default" ng-click="toggle(table)">Détails</button>
         <div class="details" ng-show="table.details">        
           <ul>
-            <li><strong>Adresse MAC : </strong>{{table.mac}}</li>
-            <li><strong>Etat : </strong>{{table.state}}</li>
-            <li><strong>Lieu : </strong>{{table.place}}</li>            
+            <li><strong>Adresse MAC : </strong>{{table.adresse}}</li>
+            <li><strong>Etat : </strong>{{table.etat}}</li>
+            <li><strong>Lieu : </strong>{{table.lieu.nom}}</li>            
           </ul>
         </div>
       </div>
