@@ -20,6 +20,23 @@ app.get('/data/:table', function(req, res){
 	res.json(table);
 });
 
+
+// Réponse à la requête permettant d'obtenir la liste des tables
+app.get('/listeBoissons', function(req, res){
+  
+  // envoi des données au format JSON
+  res.json(boissons);
+});
+
+// Réponse à la requête permettant d'obtenir les données d'une table
+app.get('/data1/:boisson', function(req, res){
+  // chargement des données
+  var boisson = boissons[req.params.boisson];
+
+  // envoi des données au format JSON
+  res.json(boisson);
+});
+
 // Démarrage du serveur
 var server = app.listen(3000, function () {
   var port = server.address().port;
@@ -54,6 +71,7 @@ var boisson = function(_id,_fabricant,_logo,_type,_description) {
   this.logo = _logo;
   this.type = _type;
   this.description = _description;
+  this.details=false;
 };
 var prix_lieu = function(_lieu,_boisson,_prix) {
   this.lieu = _lieu;
@@ -73,8 +91,8 @@ var lieux = [
 
     ];
   var boissons= [
-      new boisson(0,'DOSI','logo1','boisson chaud','café'),
-      new boisson(1,'DOSI','logo2','boisson froid','coca-cola')
+      new boisson(0,'DOSI','images/cafe.jpg','boisson chaud','café'),
+      new boisson(1,'DOSI','images/coca-cola.jpg','boisson froid','coca-cola')
 
   ];
   var futs = [
