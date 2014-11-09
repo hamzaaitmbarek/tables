@@ -42,10 +42,11 @@ var lieu = function(_id,_nom,_position) {
   this.nom = _nom;
   this.position = _position;
 };
-var fut = function(_id,_volume,_boisson) {
+var fut = function(_id,_volume,_boisson_table) {
   this.id = _id;
   this.volume = _volume;
   this.boisson = _boisson;
+  this.table = _table;
 };
 var boisson = function(_id,_fabricant,_logo,_type,_img,_description,_lieu) {
   this.id = _id;
@@ -65,8 +66,13 @@ var lieux = [
       new lieu(1,'paris','b')
 
     ];
+var futs = [
+      new lieu(0,'10l','coca',tables[0]),
+      new lieu(1,'50l','jus',tables[1])
+
+    ];
   var tables = [
-      new table(1,'Annick','brest','OFF','images/table.png',true,lieux[0]),
-      new table(2,'Annegrete','paris','OFF','images/table.png',false,lieux[1])
+      new table(1,'Annick','54:25:36:j5','OFF','images/table.png',false,lieux[0]),
+      new table(2,'Annegrete','f4:58:4g:fz','OFF','images/table.png',false,lieux[1])
 
     ];
