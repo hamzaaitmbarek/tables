@@ -4,13 +4,22 @@
   var boissons;
   app.controller('ListController', ['$scope', '$http', function($scope, $http){
 
-      // Affichage de la liste des tables
-	   $http.get("/listeTables").success(function(data){
-		    tables = data;
-		    $scope.tables = data;
-	   }).error(function(errmsg){
-		    alert("impossible de charger la liste des tables");
-	   });
+    // Affichage de la liste des tables
+	$http.get("/listeTables").success(function(data){
+		tables = data;
+		$scope.tables = data;
+	}).error(function(errmsg){
+		alert("impossible de charger la liste des tables");
+	});
+
+      //la fonction qui change l'etat
+ 	$scope.changerEtat = function(table, newEtat){
+		// Requete Post pour changer l'état d'une table
+      		$http.post('/modifierTable/etat/' + table.id + '/' + newEtat).success(function(data){
+			     alert("Etat table modifiée");
+		});
+	}
+
 
     // Fonction permettant l'affichage des détails
     $scope.toggle = function(table){
@@ -37,7 +46,7 @@
      });
 
     // Fonction permettant l'affichage des détails
-    $scope.toggle = function(boisson){
+    $scope.toggleB = function(boisson){
       // Requete GET pour réupérer les données de la table
         $http.get('/data1/' + boisson.id).success(function(data1){
         // enregistrement local des données

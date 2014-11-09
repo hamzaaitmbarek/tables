@@ -36,26 +36,30 @@
       </nav>
       <div class="jumbotron">
 
-      <!--  Tables  -->
-      <div ng-show="nav.isSet(1)">
-      <h1 class="text-center">Liste des tables</h1>
-      <div class="list-group">
-        <!--  Pour chaque table  -->
-        <div id="table-{{table.name}}" class="list-group-item" ng-repeat="table in tables">
-          <h3>{{table.nom}}</h3>
-          <img ng-src="{{table.img}}"/>
-          <button class="btn btn-default" ng-click="toggle(table)">Détails</button>
-          <div class="details" ng-show="table.details">        
-           <ul>
-              <li><strong>Adresse MAC : </strong>{{table.mac}}</li>
-              <li><strong>Etat : </strong>{{table.etat}}</li>
-              <li><strong>Lieu : </strong>{{table.lieu.nom}}</li>  
-            </ul>
-          
-         </div>
+    <!--  Tables  -->
+    <div ng-show="nav.isSet(1)">
+    <h1 class="text-center">Liste des tables</h1>
+    <div class="list-group">
+      <!--  Pour chaque table  -->
+      <div id="table-{{table.name}}" class="list-group-item" ng-repeat="table in tables">
+        <h3>{{table.nom}}</h3>
+        <img ng-src="{{table.img}}"/>
+        <button class="btn btn-default" ng-click="toggle(table)">Détails</button>
+        <div class="details" ng-show="table.details">        
+          <ul>
+            <li><strong>Adresse MAC : </strong>{{table.mac}}</li>
+            <li><strong>Etat : </strong>
+				<button type="button" ng-click="changerEtat(table, 'DISCONNECTED')" ng-class="{ 'btn-primary':table.state == 'DISCONNECTED'}" class="btn"> DISCONNECTED </button>
+				<button type="button" ng-click="changerEtat(table, 'OFF')" ng-class="{ 'btn-primary':table.state == 'OFF'}" class="btn"> OFF </button>
+				<button type="button" ng-click="changerEtat(table, 'TAG')" ng-class="{ 'btn-primary':table.state == 'TAG'}" class="btn"> TAG </button>
+				<button type="button" ng-click="changerEtat(table, 'FREE')" ng-class="{ 'btn-primary':table.state == 'FREE'}" class="btn"> FREE </button>
+			</li>
+            <li><strong>Lieu : </strong>{{table.place}}</li>            
+          </ul>
         </div>
       </div>
     </div>
+  </div>
 
     <!--  Lieux  -->
      <div ng-show="nav.isSet(2)">
@@ -74,7 +78,7 @@
         <div id="boisson-{{boisson.name}}" class="list-group-item" ng-repeat="boisson in boissons">
           <h3>{{boisson.description}}</h3>
           <img ng-src="{{boisson.logo}}"/>
-          <button class="btn btn-default" ng-click="toggle(boisson)">Détails</button>
+          <button class="btn btn-default" ng-click="toggleB(boisson)">Détails</button>
           <div class="details" ng-show="boisson.details">        
            <ul>
               <li><strong>Fabriquant: </strong>{{boisson.fabricant}}</li>
