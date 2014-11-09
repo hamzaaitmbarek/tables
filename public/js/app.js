@@ -11,7 +11,14 @@
 		alert("impossible de charger la liste des tables");
 	});
 
-      
+      //la fonction dui change l'etat
+ 	$scope.changerEtat = function(table, newEtat){
+		// Requete Postpour changer l'état d'une table
+      		$http.post('/modifierTable/etat/' + table.id + '/' + newEtat).success(function(data){
+			alert("table modifiée");
+		});
+	}
+
 
     // Fonction permettant l'affichage des détails
     $scope.toggle = function(table){

@@ -11,6 +11,18 @@ app.get('/listeTables', function(req, res){
 	res.json(tables);
 });
 
+// Réponse à la requête permettant de changer l'état d'une tables
+app.post('/modifierTable/etat/:t/:e', function(req, res){
+	var id = req.params.t;
+	var etat = req.params.e;
+	console.log('************'+etat+'***********');
+	console.log('************'+id+'***********');
+	tables[id].etat = etat;
+	console.log('************fin***********');
+	res.json(tables[id]);
+});
+
+
 // Réponse à la requête permettant d'obtenir les données d'une table
 app.get('/data/:table', function(req, res){
 	// chargement des données

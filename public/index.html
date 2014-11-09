@@ -33,7 +33,12 @@
         <div class="details" ng-show="table.details">        
           <ul>
             <li><strong>Adresse MAC : </strong>{{table.mac}}</li>
-            <li><strong>Etat : </strong>{{table.state}}</li>
+            <li><strong>Etat : </strong>
+				<button type="button" ng-click="changerEtat(table, 'DISCONNECTED')" ng-class="{ 'btn-primary':table.state == 'DISCONNECTED'}" class="btn"> DISCONNECTED </button>
+				<button type="button" ng-click="changerEtat(table, 'OFF')" ng-class="{ 'btn-primary':table.state == 'OFF'}" class="btn"> OFF </button>
+				<button type="button" ng-click="changerEtat(table, 'TAG')" ng-class="{ 'btn-primary':table.state == 'TAG'}" class="btn"> TAG </button>
+				<button type="button" ng-click="changerEtat(table, 'FREE')" ng-class="{ 'btn-primary':table.state == 'FREE'}" class="btn"> FREE </button>
+			</li>
             <li><strong>Lieu : </strong>{{table.place}}</li>            
           </ul>
         </div>
