@@ -1,6 +1,7 @@
 (function() {
   var app = angular.module('tpAngular', []);
 	var tables;
+
   app.controller('ListController', ['$scope', '$http', function($scope, $http){
 
     // Affichage de la liste des tables
@@ -17,6 +18,7 @@
       		$http.post('/modifierTable/etat/' + table.id + '/' + newEtat).success(function(data){
 			alert("table modifiée");
 		});
+		table.state = newEtat;
 	}
 
 
