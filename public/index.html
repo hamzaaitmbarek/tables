@@ -6,6 +6,8 @@
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <style type="text/css">
       .list-group-item img {
         width: 64px;
@@ -17,14 +19,27 @@
     </style>
   </head>
 
-  <body ng-controller="ListController as ctlr" background="fond.jpg">
-    <!--  Header  -->
-    <header>
-      <h1 class="text-center">Suivi des tables {{ctlr.test}}</h1>
-      <h2 class="text-center">– vue d'ensemble –</h2>
-    </header>
+  <body ng-controller="ListController as ctlr">
+  <div class="container" ng-controller="NavController as nav">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">Project WEB</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li ng-class="{ active:nav.isSet(1) }"><a href="" ng-click="nav.setNav(1) ">Tables</a></li>
+              <li ng-class="{ active:nav.isSet(2) }"><a href="" ng-click="nav.setNav(2) ">Lieux</a></li>
+              <li ng-class="{ active:nav.isSet(3) }"><a href="" ng-click="nav.setNav(3) ">Boissons</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+      <div class="jumbotron">
 
     <!--  Tables  -->
+    <div ng-show="nav.isSet(1)">
+    <h1 class="text-center">Liste des tables</h1>
     <div class="list-group">
       <!--  Pour chaque table  -->
       <div id="table-{{table.name}}" class="list-group-item" ng-repeat="table in tables">
@@ -44,6 +59,37 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+
+    <!--  Lieux  -->
+     <div ng-show="nav.isSet(2)">
+      <h1 class="text-center">Liste des Lieux {{ctlr.test}}</h1>
+      <div class="list-group">
+        <!--  Pour chaque Lieu  -->
+       
+      </div>
+    </div>
+
+    <!--  Boissons  -->
+     <div ng-show="nav.isSet(3)">
+      <h1 class="text-center">Liste des Boissons</h1>
+      <div class="list-group">
+        <!--  Pour chaque Boisson  -->
+        <div id="boisson-{{boisson.name}}" class="list-group-item" ng-repeat="boisson in boissons">
+          <h3>{{boisson.description}}</h3>
+          <img ng-src="{{boisson.logo}}"/>
+          <button class="btn btn-default" ng-click="toggleB(boisson)">Détails</button>
+          <div class="details" ng-show="boisson.details">        
+           <ul>
+              <li><strong>Fabriquant: </strong>{{boisson.fabricant}}</li>
+              <li><strong>Type : </strong>{{boisson.type}}</li> 
+            </ul>
+          
+         </div>
+        </div>
+      </div>
+    </div>
 
     </div>
   </body>

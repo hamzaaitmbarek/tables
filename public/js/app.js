@@ -1,15 +1,12 @@
 (function() {
   var app = angular.module('tpAngular', []);
 	var tables;
-
-
+  var boissons;
 
 
 
 //**************SOCKET*******************
 var socket = io();
-
-
 
   app.controller('ListController', ['$scope', '$http', function($scope, $http){
 
@@ -49,11 +46,11 @@ var socket = io();
 		alert("impossible de charger la liste des tables");
 	});
 
-      //la fonction dui change l'etat
+      //la fonction qui change l'etat
  	$scope.changerEtat = function(table, newEtat){
-		// Requete Postpour changer l'état d'une table
+		// Requete Post pour changer l'état d'une table
       		$http.post('/modifierTable/etat/' + table.id + '/' + newEtat).success(function(data){
-			alert("table modifiée");
+			     alert("Etat table modifiée");
 		});
 		table.state = newEtat;
 	}
@@ -61,7 +58,33 @@ var socket = io();
 
     // Fonction permettant l'affichage des détails
     $scope.toggle = function(table){
-        table.details = ! table.details;
-    }
+          table.details = ! table.details;     
+      } ;
+
+
+       // Affichage de la liste des boissons
+     $http.get("/listeBoissons").success(function(data1){
+        boissons=data1;
+        $scope.boissons = data1;
+     }).error(function(errmsg){
+        alert("impossible de charger la liste des tables");
+     });
+
+    // Fonction permettant l'affichage des détails
+    $scope.toggleB = function(boisson){
+          boisson.details = ! boisson.details;      
+      } ;
   }]);
+  //navigation entre les liens
+  app.controller('NavController', function(){
+    this.nav = 1;
+
+    this.setNav = function(newValue){
+      this.nav=newValue;
+    };
+
+    this.isSet = function(navName){
+      return this.nav === navName;
+    };
+  });
 })();
