@@ -1,7 +1,11 @@
 (function() {
   var app = angular.module('tpAngular', []);
 	var tables;
+<<<<<<< HEAD
   var boissons;
+=======
+
+>>>>>>> c659264c515881599e5b93d28e092a2985a0b13a
   app.controller('ListController', ['$scope', '$http', function($scope, $http){
 
     // Affichage de la liste des tables
@@ -18,6 +22,7 @@
       		$http.post('/modifierTable/etat/' + table.id + '/' + newEtat).success(function(data){
 			     alert("Etat table modifiée");
 		});
+		table.state = newEtat;
 	}
 
 
