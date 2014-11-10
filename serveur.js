@@ -1,5 +1,7 @@
 var express = require('express')
 var app = express()
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 // Répertoire contenant les données statiques
 app.use(express.static(__dirname + '/public'));
@@ -47,10 +49,49 @@ app.get('/data1/:boisson', function(req, res){
 });
 
 // Démarrage du serveur
-var server = app.listen(3000, function () {
-  var port = server.address().port;
-  console.log('Serveur écoute http://localhost:%s', port);
+http.listen(3030, function(){
+  console.log('listening on *:3030');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---------SOCKET--------------
+io.on('connection', function(socket){
+	
+  socket.on('changerEtat', function(data){
+	//modifier une table
+    var id = data[0];
+    var etat = data[1];
+    tables[id].etat = etat;
+    //console.log('la table: ' + data[0] +' = '+data[1]);
+    console.log(JSON.stringify(tables[id]));
+	//envoyer la table modifiée
+    io.emit('miseAJour', data);
+  });
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 // Les données des tables 
 // (typiquement ces données seraient enregistrées en base de données)

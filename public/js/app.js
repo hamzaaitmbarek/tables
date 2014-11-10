@@ -1,17 +1,47 @@
 (function() {
   var app = angular.module('tpAngular', []);
 	var tables;
-<<<<<<< HEAD
   var boissons;
-=======
 
->>>>>>> c659264c515881599e5b93d28e092a2985a0b13a
+
+
+//**************SOCKET*******************
+var socket = io();
+
   app.controller('ListController', ['$scope', '$http', function($scope, $http){
+
+
+	$scope.tables = [];
+	//**************SOCKET*******************
+	$scope.changerEtatS = function(table, newEtat){
+
+		socket.emit('changerEtat', [table.id , newEtat]);
+		//f(table.id,newEtat);
+	}
+
+	function f(id, etat){
+		$scope.tables[id].etat = etat;
+		alert('la table: ' + $scope.tables[id].id +' = '+$scope.tables[id].etat);
+	}
+	socket.on('miseAJour', function(data){
+		
+		//alert('la table: ' + data[0] +' = '+data[1]);
+		var id = data[0];
+		var etat = data[1];
+		
+		//alert('la table: ' + $scope.tables[id].id +' = '+$scope.tables[id].etat);
+		f(id,etat);
+		//alert('la table: ' + $scope.tables[id].id +' = '+$scope.tables[id].etat);
+
+	});
+	
+	//*********************************************
 
     // Affichage de la liste des tables
 	$http.get("/listeTables").success(function(data){
-		tables = data;
+		//tables = data;
 		$scope.tables = data;
+		console.log($scope.tables);
 	}).error(function(errmsg){
 		alert("impossible de charger la liste des tables");
 	});
@@ -28,17 +58,7 @@
 
     // Fonction permettant l'affichage des détails
     $scope.toggle = function(table){
-      // Requete GET pour réupérer les données de la table
-        $http.get('/data/' + table.id).success(function(data){
-        // enregistrement local des données
-          table.mac = data.addresse;
-          table.state = data.etat;
-          table.place = data.lieu.nom;
-        // affichage des détails
-          table.details = ! table.details;
-        }).error(function(errmsg){
-		      alert("impossible de charger la table");
-	      });      
+          table.details = ! table.details;     
       } ;
 
 
@@ -52,16 +72,7 @@
 
     // Fonction permettant l'affichage des détails
     $scope.toggleB = function(boisson){
-      // Requete GET pour réupérer les données de la table
-        $http.get('/data1/' + boisson.id).success(function(data1){
-        // enregistrement local des données
-          boisson.fabricant = data1.fabricant;
-          boisson.type = data1.type;
-        // affichage des détails
-          boisson.details = ! boisson.details;
-        }).error(function(errmsg){
-          alert("impossible de charger la table");
-        });      
+          boisson.details = ! boisson.details;      
       } ;
   }]);
   //navigation entre les liens
