@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
@@ -19,7 +21,7 @@
     </style>
   </head>
 
-  <body ng-controller="ListController as ctlr">
+  <body ng-controller="ListController as ctlr" background="images/fond1.jpg">
   <div class="container" ng-controller="NavController as nav">
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
@@ -39,7 +41,8 @@
 
     <!--  Tables  -->
     <div ng-show="nav.isSet(1)">
-    <h1 class="text-center">Liste des tables</h1>
+    <h1 class="text-center">Liste des Tables</h1>
+    <h2 class="text-center">Vu de L'ensemble</h2>
     <div class="list-group">
       <!--  Pour chaque table  -->
       <div id="table-{{table.name}}" class="list-group-item" ng-repeat="table in tables">
