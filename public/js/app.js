@@ -4,38 +4,59 @@
   var boissons;
 
 
+//************************************************************utilisation d'un service que je ne comprend pas !!!!
+app.factory('socket', function($rootScope) {
+var socket = io.connect();
+return {
+on: function(eventName, callback) {
+socket.on(eventName, function() {
+var args = arguments;
+$rootScope.$apply(function() {
+callback.apply(socket, args);
+});
+});
+},
+emit: function(eventName, data, callback) {
+socket.emit(eventName, data, function() {
+var args = arguments;
+$rootScope.$apply(function() {
+if(callback) {
+callback.apply(socket, args);
+}
+});
+});
+}
+};
+});
+//************************************************************fin service
+
 
 //**************SOCKET*******************
 var socket = io();
 
-  app.controller('ListController', ['$scope', '$http', function($scope, $http){
+  app.controller('ListController', ['$scope', '$http','socket', function($scope, $http, socket){
 
 
 	$scope.tables = [];
 	//**************SOCKET*******************
+		//changer l'état d'une table
 	$scope.changerEtatS = function(table, newEtat){
-
 		socket.emit('changerEtat', [table.id , newEtat]);
-		//f(table.id,newEtat);
 	}
-
+		
 	function f(id, etat){
 		$scope.tables[id].etat = etat;
-		alert('la table: ' + $scope.tables[id].id +' = '+$scope.tables[id].etat);
 	}
+		//reception des mise a jours
 	socket.on('miseAJour', function(data){
 		
-		//alert('la table: ' + data[0] +' = '+data[1]);
 		var id = data[0];
 		var etat = data[1];
-		
-		//alert('la table: ' + $scope.tables[id].id +' = '+$scope.tables[id].etat);
 		f(id,etat);
-		//alert('la table: ' + $scope.tables[id].id +' = '+$scope.tables[id].etat);
 
 	});
 	
-	//*********************************************
+	//*******************fin SOCKET**************************
 
     // Affichage de la liste des tables
 	$http.get("/listeTables").success(function(data){
@@ -46,17 +67,9 @@ var socket = io();
 		alert("impossible de charger la liste des tables");
 	});
 
-      //la fonction qui change l'etat
- 	$scope.changerEtat = function(table, newEtat){
-		// Requete Post pour changer l'état d'une table
-      		$http.post('/modifierTable/etat/' + table.id + '/' + newEtat).success(function(data){
-			     alert("Etat table modifiée");
-		});
-		table.state = newEtat;
-	}
 
 
-    // Fonction permettant l'affichage des détails
+    // Fonction permettant l'affichage des détails des tables
     $scope.toggle = function(table){
           table.details = ! table.details;     
       } ;
@@ -70,7 +83,7 @@ var socket = io();
         alert("impossible de charger la liste des tables");
      });
 
-    // Fonction permettant l'affichage des détails
+    // Fonction permettant l'affichage des détails des boissons
     $scope.toggleB = function(boisson){
           boisson.details = ! boisson.details;      
       } ;
