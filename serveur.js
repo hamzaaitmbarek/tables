@@ -58,13 +58,6 @@ http.listen(3030, function(){
 
 
 
-
-
-
-
-
-
-
 //---------SOCKET--------------
 io.on('connection', function(socket){
 	
@@ -130,29 +123,35 @@ var prix_lieu = function(_lieu,_boisson,_prix) {
 };
 
 var lieux = [
-      new lieu(0,'brest','a'),
-      new lieu(1,'paris','b')
+      new lieu(0,'Brest','a'),
+      new lieu(1,'Paris','b'),
+      new lieu(1,'Nantes','c')
 
     ];
 
   var tables = [
-      new table(0,'Annick','54:25:36:j5','OFF','images/table.png',false,lieux[0]),
-      new table(1,'Annegrete','f4:58:4g:fz','OFF','images/table.png',false,lieux[1])
+      new table(0,'Annick','54:25:36:j5','OFF','images/tab.jpg',false,lieux[0]),
+      new table(1,'Annegrete','f4:58:4g:fz','OFF','images/tab.jpg',false,lieux[1]),
+      new table(2,'Ontoinette','f5:59:5g:fx','OFF','images/tab.jpg',false,lieux[2])
 
     ];
   var boissons= [
-      new boisson(0,'DOSI','images/cafe.jpg','boisson chaud','café'),
-      new boisson(1,'DOSI','images/coca-cola.jpg','boisson froid','coca-cola')
+      new boisson(0,'DOSI','images/cafe.jpg','boisson chaud','Café'),
+      new boisson(1,'DOSI','images/coca-cola.jpg','boisson froid','Coca-Cola'),
+      new boisson(1,'DOSI','images/redbull.jpg','boisson froid','Red Bull')
 
   ];
   var futs = [
       new fut(0,'10l',boissons[0],tables[0]),
+      new fut(1,'50l',boissons[1],tables[1]),
       new fut(1,'50l',boissons[1],tables[1])
 
   ];
 
   var prix_lieux = [
       new prix_lieu(lieux[0],boissons[0],'1$'),
+      new prix_lieu(lieux[1],boissons[1],'2$'),
       new prix_lieu(lieux[1],boissons[1],'2$')
+
 
   ];
