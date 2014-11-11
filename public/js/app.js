@@ -2,7 +2,7 @@
   var app = angular.module('tpAngular', []);
 	var tables;
   var boissons;
-
+  var lieux;
 
 //************************************************************utilisation d'un service que je ne comprend pas !!!!
 app.factory('socket', function($rootScope) {
@@ -87,6 +87,20 @@ var socket = io();
     $scope.toggleB = function(boisson){
           boisson.details = ! boisson.details;      
       } ;
+
+        //Affichage des listes des leiux
+      $http.get("/listeLieux").success(function(data2){
+        leiux=data2;
+
+        $scope.lieux = data2;
+     }).error(function(errmsg){
+        alert("impossible de charger la liste des tables");
+     });
+
+    /* Fonction permettant l'affichage des détails de leiux
+    $scope.toggleC = function(leiu){
+          boisson.details = ! boisson.details;      
+      } ;*/
   }]);
   //navigation entre les liens
   app.controller('NavController', function(){
