@@ -32,14 +32,14 @@ app.get('/data/:table', function(req, res){
 });
 
 
-// Réponse à la requête permettant d'obtenir la liste des tables
+// Réponse à la requête permettant d'obtenir la liste des boissons
 app.get('/listeBoissons', function(req, res){
   
   // envoi des données au format JSON
   res.json(boissons);
 });
 
-// Réponse à la requête permettant d'obtenir les données d'une table
+// Réponse à la requête permettant d'obtenir les données d'un boisson
 app.get('/data1/:boisson', function(req, res){
   // chargement des données
   var boisson = boissons[req.params.boisson];
@@ -47,6 +47,30 @@ app.get('/data1/:boisson', function(req, res){
   // envoi des données au format JSON
   res.json(boisson);
 });
+
+
+
+// Réponse à la requête permettant d'obtenir la liste des lieux
+app.get('/listeLieux', function(req, res){
+  
+  // envoi des données au format JSON
+  res.json(lieux);
+});
+
+// Réponse à la requête permettant d'obtenir les données d'un lieu
+app.get('/data2/:lieu', function(req, res){
+  // chargement des données
+  var lieu = lieux[req.params.lieu];
+
+  // envoi des données au format JSON
+  res.json(lieu);
+});
+
+
+
+
+
+
 
 // Démarrage du serveur
 http.listen(3030, function(){
@@ -66,8 +90,6 @@ io.on('connection', function(socket){
     var id = data[0];
     var etat = data[1];
     tables[id].etat = etat;
-    //console.log('la table: ' + data[0] +' = '+data[1]);
-    console.log(JSON.stringify(tables[id]));
 	//envoyer la table modifiée
     io.emit('miseAJour', data);
   });
@@ -87,7 +109,6 @@ io.on('connection', function(socket){
 
 
 // Les données des tables 
-// (typiquement ces données seraient enregistrées en base de données)
 var table = function(_id,_nom,_addresse,_etat,_img,_details,_lieu) {
   this.id = _id;
   this.nom = _nom;
@@ -123,9 +144,9 @@ var prix_lieu = function(_lieu,_boisson,_prix) {
 };
 
 var lieux = [
-      new lieu(0,'Brest','a'),
-      new lieu(1,'Paris','b'),
-      new lieu(1,'Nantes','c')
+      new lieu(0,'Brest','https://maps.google.fr/maps/ms?num=1&amp;ie=UTF8&amp;hl=fr&amp;msa=0&amp;msid=211688303479563437137.0004a38e715bb3e72ec41&amp;source=embed&amp;t=m&amp;ll=48.902335,2.154667&amp;spn=0,0&amp;output=embed'),
+      new lieu(1,'Paris','https://www.google.fr/maps/place/Universit%C3%A9+de+Bretagne+Occidentale+-+UBO/@48.398046,-4.507758,17z/data=!3m1!4b1!4m2!3m1!1s0x4816bbf7926349e9:0xfdabf9ecd3f1a0c9'),
+      new lieu(1,'Nantes','https://www.google.fr/maps/place/Universit%C3%A9+de+Bretagne+Occidentale+-+UBO/@48.398046,-4.507758,17z/data=!3m1!4b1!4m2!3m1!1s0x4816bbf7926349e9:0xfdabf9ecd3f1a0c9')
 
     ];
 
